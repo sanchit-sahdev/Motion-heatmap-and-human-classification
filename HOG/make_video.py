@@ -8,26 +8,11 @@ from progress.bar import Bar
 
 
 
-"""
-
-A utility function to merge together many frames into a video.
-
-
-
-"""
-
-
-
-
-
 def atoi(text):
 
     # A helper function to return digits inside text
 
     return int(text) if text.isdigit() else text
-
-
-
 
 
 def natural_keys(text):
@@ -38,29 +23,21 @@ def natural_keys(text):
 
 
 
-
-
 def make_video(image_folder, video_name):
+    print ("Making Video")
 
     images = [img for img in os.listdir(image_folder)]
-
     images.sort(key=natural_keys)
-
-
 
     frame = cv2.imread(os.path.join(image_folder, images[0]))
 
     height, width, layers = frame.shape
 
-
-
     fourcc = cv2.VideoWriter_fourcc(*"MJPG")
-
-
 
     video = cv2.VideoWriter(video_name, fourcc, 30.0, (width, height))
 
-    bar = Bar('Creating Video', max=len(images))
+    #bar = Bar('Creating Video', max=len(images))
 
 
 
@@ -68,12 +45,11 @@ def make_video(image_folder, video_name):
 
         video.write(cv2.imread(os.path.join(image_folder, image)))
 
-        bar.next()
+        #bar.next()
 
-
+    print (">>>Video Made")
 
     cv2.destroyAllWindows()
-
     video.release()
 
 

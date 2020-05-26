@@ -3,16 +3,16 @@ import cv2
 import copy
 
 from make_video import make_video
-#import detect
 from progress.bar import Bar
 
 
 def initiateHeatMap():
-    capture = cv2.VideoCapture('HeatInput.avi')
+    print ("Making HeatMap")
+    capture = cv2.VideoCapture('heatInput.avi')
     background_subtractor = cv2.bgsegm.createBackgroundSubtractorMOG()
 
     length = int(capture.get(cv2.CAP_PROP_FRAME_COUNT))
-    bar = Bar('Processing Frames', max=length)
+    #bar = Bar('Processing Frames', max=length)
 
     first_iteration_indicator = 1
 
@@ -49,10 +49,11 @@ def initiateHeatMap():
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
-        bar.next()
+        #bar.next()
 
-    bar.finish()
-
+    #bar.finish()
+    print (">>>HeatMap Finished")
+    print ("Converting into Video")
     make_video('./frames/', './~~~~~~FINAL-OUTPUT~~~~~~.avi')
     color_image = cv2.applyColorMap(accum_image, cv2.COLORMAP_HOT)
     result_overlay = cv2.addWeighted(first_frame, 0.7, color_image, 0.7, 0)
